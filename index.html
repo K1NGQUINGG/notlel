@@ -10,10 +10,14 @@
       color: #00ff88;
       font-family: 'Courier New', monospace, sans-serif;
       text-align: center;
-      padding-top: 30px;
+      padding: 0;
+      margin: 0;
       overflow: hidden;
       position: relative;
-      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
     /* Scanline effect */
@@ -33,7 +37,7 @@
 
     h1 {
       font-size: 4rem;
-      margin-bottom: 20px;
+      margin: 20px 0;
       text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88;
       animation: glitch 1.5s infinite;
       position: relative;
@@ -44,7 +48,7 @@
       width: 100px;
       height: 100px;
       position: relative;
-      margin: 0 auto;
+      margin: 20px auto;
       animation: flip 1.8s infinite ease-in-out, glow 0.5s infinite alternate;
       transform-origin: center center;
       z-index: 2;
@@ -119,7 +123,7 @@
       animation: glitch 0.3s infinite, shake 0.1s infinite;
       position: relative;
       z-index: 3;
-      margin-top: 20px;
+      margin: 20px 0;
       transition: all 0.2s;
     }
 
@@ -141,11 +145,9 @@
       cursor: pointer;
       text-shadow: 0 0 10px #00ff88;
       animation: glitch 0.3s infinite, shake 0.1s infinite;
-      position: absolute;
-      top: 70%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 3;
+      margin: 20px 0;
       transition: all 0.2s;
     }
 
@@ -183,11 +185,9 @@
       color: #00ff88;
       text-shadow: 0 0 15px #00ff88;
       animation: glitch 1s infinite;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 5;
+      margin: 20px 0;
     }
 
     .kidding-text.active {
@@ -201,11 +201,9 @@
       color: #00ff88;
       text-shadow: 0 0 15px #00ff88;
       animation: glitch 1s infinite;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 5;
+      margin: 20px 0;
     }
 
     .escape-text.active {
@@ -217,13 +215,11 @@
       display: none;
       color: #00ff88;
       font-size: 1.2rem;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      position: relative;
       z-index: 5;
-      text-align: left;
+      text-align: center;
       max-width: 80%;
+      margin: 20px 0;
     }
 
     .ip-info.active {
@@ -313,19 +309,24 @@
     @media (max-width: 600px) {
       h1 {
         font-size: 2.5rem;
+        margin: 15px 0;
       }
       .stickman {
         transform: scale(0.8);
+        margin: 15px auto;
       }
       .glitch-button, .back-button {
         font-size: 1.2rem;
         padding: 8px 16px;
+        margin: 15px 0;
       }
       .kidding-text, .escape-text {
         font-size: 2rem;
+        margin: 15px 0;
       }
       .ip-info {
         font-size: 1rem;
+        margin: 15px 0;
       }
       .spam-image {
         width: 80px;
@@ -420,37 +421,37 @@
         kiddingText.classList.add('active');
         speak('haha just kidding!');
         kiddingText.style.animation = 'glitch 1s infinite, fadeOut 2s 2s forwards';
-        // Show back button
-        backButton.classList.add('active');
-      }, 2000);
 
-      // After kidding text, show IP info
-      setTimeout(() => {
-        kiddingText.classList.remove('active');
-        fetch('https://api.ipify.org?format=json')
-          .then(response => response.json())
-          .then(data => {
-            const ip = data.ip;
-            return fetch(`http://ip-api.com/json/${ip}`);
-          })
-          .then(response => response.json())
-          .then(data => {
-            ipInfo.innerHTML = `
-              Yo, gotcha! Your IP: ${data.query}<br>
-              Location: ${data.city}, ${data.region}, ${data.country}<br>
-              ISP: ${data.isp}<br>
-              Timezone: ${data.timezone}<br>
-              *Just messing with ya, this is public info!*
-            `;
-            speak(`Yo, gotcha! Your IP is ${data.query}. Location: ${data.city}, ${data.region}, ${data.country}. ISP: ${data.isp}. Timezone: ${data.timezone}. Just messing with ya, this is public info!`);
-            ipInfo.classList.add('active');
-          })
-          .catch(() => {
-            ipInfo.innerHTML = 'Yo, gotcha! IP fetch failed, but I know you’re out there!';
-            speak('Yo, gotcha! IP fetch failed, but I know you’re out there!');
-            ipInfo.classList.add('active');
-          });
-      }, 5000);
+        // Show back button only after kidding text fades
+        setTimeout(() => {
+          kiddingText.classList.remove('active');
+          backButton.classList.add('active');
+          // Fetch and show IP info at the same time
+          fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+              const ip = data.ip;
+              return fetch(`http://ip-api.com/json/${ip}`);
+            })
+            .then(response => response.json())
+            .then(data => {
+              ipInfo.innerHTML = `
+                Yo, gotcha! Your IP: ${data.query}<br>
+                Location: ${data.city}, ${data.region}, ${data.country}<br>
+                ISP: ${data.isp}<br>
+                Timezone: ${data.timezone}<br>
+                *Just messing with ya, this is public info!*
+              `;
+              speak(`Yo, gotcha! Your IP is ${data.query}. Location: ${data.city}, ${data.region}, ${data.country}. ISP: ${data.isp}. Timezone: ${data.timezone}. Just messing with ya, this is public info!`);
+              ipInfo.classList.add('active');
+            })
+            .catch(() => {
+              ipInfo.innerHTML = 'Yo, gotcha! IP fetch failed, but I know you’re out there!';
+              speak('Yo, gotcha! IP fetch failed, but I know you’re out there!');
+              ipInfo.classList.add('active');
+            });
+        }, 4000); // Wait for kidding text (2s display + 2s fade)
+      }, 2000); // Wait for jumpscare (1s flash + 1s fade)
     });
 
     // Back button sequence
@@ -464,8 +465,9 @@
       speak('you cannot escape');
       escapeText.style.animation = 'glitch 1s infinite, fadeOut 2s 2s forwards';
 
-      // Request fullscreen and spam images
+      // Request fullscreen and spam images after escape text fades
       setTimeout(() => {
+        escapeText.classList.remove('active');
         document.documentElement.requestFullscreen().catch(err => console.log('Fullscreen failed:', err));
 
         // Spam images
@@ -482,7 +484,7 @@
         setTimeout(() => {
           document.querySelectorAll('.spam-image').forEach(img => img.remove());
         }, 5000);
-      }, 2000);
+      }, 4000); // Wait for escape text (2s display + 2s fade)
     });
   </script>
 </body>
