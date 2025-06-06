@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LEL NEVER DIES</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #00ff88;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding-top: 50px;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 50px;
+      text-shadow: 0 0 10px #00ff88;
+    }
+
+    .stickman {
+      width: 10px;
+      height: 10px;
+      position: relative;
+      margin: 0 auto;
+      animation: flip 2s infinite ease-in-out;
+      transform-origin: center center;
+    }
+
+    .head {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #00ff88;
+      position: absolute;
+      top: -30px;
+      left: -5px;
+    }
+
+    .body {
+      width: 2px;
+      height: 40px;
+      background: #00ff88;
+      position: absolute;
+      top: -10px;
+      left: 4px;
+    }
+
+    .arm-left, .arm-right {
+      width: 30px;
+      height: 2px;
+      background: #00ff88;
+      position: absolute;
+      top: 0;
+    }
+
+    .arm-left {
+      left: -28px;
+    }
+
+    .arm-right {
+      left: 10px;
+    }
+
+    .leg-left, .leg-right {
+      width: 2px;
+      height: 30px;
+      background: #00ff88;
+      position: absolute;
+      top: 30px;
+    }
+
+    .leg-left {
+      left: 0;
+      transform: rotate(20deg);
+    }
+
+    .leg-right {
+      left: 8px;
+      transform: rotate(-20deg);
+    }
+
+    @keyframes flip {
+      0% { transform: rotate(0deg) translateY(0); }
+      50% { transform: rotate(360deg) translateY(-50px); }
+      100% { transform: rotate(720deg) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>LEL NEVER DIES</h1>
+  <div class="stickman">
+    <div class="head"></div>
+    <div class="body"></div>
+    <div class="arm-left"></div>
+    <div class="arm-right"></div>
+    <div class="leg-left"></div>
+    <div class="leg-right"></div>
+  </div>
+</body>
+</html>
