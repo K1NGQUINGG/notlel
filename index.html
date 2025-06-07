@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Video with Header Overlay</title>
+  <title>Embedded ScreenPal Video with Overlay</title>
   <style>
     body {
       margin: 0;
@@ -11,45 +10,43 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      font-family: sans-serif;
     }
     .container {
       position: relative;
       width: 80%;
-      max-width: 800px;
-    }
-    video {
-      width: 100%;
-      height: auto;
-      display: block;
-      border: 2px solid #222;
-      border-radius: 10px;
+      max-width: 960px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     }
     .overlay-header {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100px; /* adjust based on your image */
+      height: 100px; /* adjust to your image's banner height */
       object-fit: cover;
       z-index: 10;
       pointer-events: none;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 540px;
+      border: none;
+      display: block;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Full-width header overlay -->
-    <img class="overlay-header" src="https://i.imgur.com/KCz6ED8.png" alt="Header Overlay">
+    <!-- Overlay banner image -->
+    <img class="overlay-header" src="https://i.imgur.com/KCz6ED8.png" alt="Overlay Banner">
     
-    <!-- Video below the overlay -->
-    <video controls>
-      <source src="https://cdn.discordapp.com/attachments/1380892851843629208/1380898900050972692/IMG_0884.mov?ex=68458dd1&is=68443c51&hm=14615ed3674b371e86383f97a3031e17e6bb3836e7ab25a1bff6f0461d0f84f5&" type="video/quicktime">
-      Your browser does not support the video tag.
-    </video>
+    <!-- Embedded ScreenPal video -->
+    <iframe src="https://go.screenpal.com/player/cT1iIvnXf9c" allowfullscreen></iframe>
   </div>
 
 </body>
