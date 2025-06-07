@@ -16,10 +16,20 @@
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: white;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      animation: backgroundShift 15s ease infinite;
+      background-size: 400% 400%;
     }
+
+    @keyframes backgroundShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .profile-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -29,19 +39,35 @@
       max-width: 350px;
       text-align: center;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      animation: float 4s ease-in-out infinite;
     }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     .profile-card img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
       border: 3px solid #00ffe0;
       margin-bottom: 1rem;
+      animation: pulseBorder 2s infinite;
     }
+
+    @keyframes pulseBorder {
+      0% { box-shadow: 0 0 0 0 #00ffe0; }
+      70% { box-shadow: 0 0 15px 10px rgba(0, 255, 224, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 255, 224, 0); }
+    }
+
     .profile-card h1 {
       font-size: 2rem;
       margin-bottom: 0.5rem;
       color: #00ffe0;
     }
+
     .profile-card a {
       display: inline-block;
       margin-top: 1.5rem;
@@ -51,10 +77,32 @@
       padding: 0.6rem 1.5rem;
       border-radius: 30px;
       font-weight: bold;
-      transition: background 0.3s;
+      transition: background 0.3s, transform 0.3s;
     }
+
     .profile-card a:hover {
       background: #00bfa6;
+      transform: scale(1.1);
+    }
+
+    .audio-control {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .audio-control label {
+      font-size: 0.9rem;
+      color: #00ffe0;
+    }
+
+    .audio-control input[type=range] {
+      accent-color: #00ffe0;
     }
   </style>
 </head>
@@ -64,5 +112,26 @@
     <h1>- LEL</h1>
     <a href="https://www.xcrypter.xyz" target="_blank">Visit My Site</a>
   </div>
+
+  <div class="audio-control">
+    <label for="volume">Music Volume:</label>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="0.5">
+  </div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="https://screenapp.io/app/#/shared/Ymhb3xJXs4" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const volumeSlider = document.getElementById('volume');
+
+    audio.volume = 0.5;
+
+    volumeSlider.addEventListener('input', () => {
+      audio.volume = volumeSlider.value;
+    });
+  </script>
 </body>
 </html>
